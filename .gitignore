@@ -1,0 +1,5 @@
+chrome-profile/
+_gitdir/
+.DS_Store
+Thumbs.db
+*.log
