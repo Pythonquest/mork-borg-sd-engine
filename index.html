@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mork Borg Solo Engine</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="sigil">MB</div>
+          <div>
+            <h1>Solo Engine</h1>
+            <p>Mork Borg + Solitary Defilement</p>
+          </div>
+        </div>
+        <nav class="tabs" aria-label="Main views">
+          <button class="tab active" data-view="desk">Desk</button>
+          <button class="tab" data-view="characters">Characters</button>
+          <button class="tab" data-view="dungeons">Dungeons</button>
+          <button class="tab" data-view="encounters">Encounters</button>
+          <button class="tab" data-view="journal">Journal</button>
+          <button class="tab" data-view="references">References</button>
+        </nav>
+        <div class="campaign-box">
+          <label for="campaignName">Campaign</label>
+          <input id="campaignName" type="text" autocomplete="off">
+          <div class="button-row">
+            <button id="exportBtn" class="small">Export</button>
+            <label class="small file-label" for="importFile">Import</label>
+            <input id="importFile" type="file" accept="application/json">
+          </div>
+        </div>
+      </aside>
+
+      <main>
+        <section class="hero">
+          <img src="assets/doom-header.svg" alt="">
+          <div class="hero-content">
+            <p id="currentDate"></p>
+            <h2 id="heroTitle">The desk is open.</h2>
+          </div>
+        </section>
+
+        <section id="desk" class="view active">
+          <div class="grid two">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Active Scvm</h3>
+                <button id="quickCharacter" class="primary">Roll Character</button>
+              </div>
+              <div id="activeCharacter" class="empty-state"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Move Roller</h3>
+                <button id="rollMove" class="primary">Roll 2d20</button>
+              </div>
+              <div class="form-grid compact">
+                <label>DR <input id="moveDr" type="number" value="12" min="1" max="30"></label>
+                <label>Modifier <input id="moveMod" type="number" value="0" min="-10" max="10"></label>
+                <label>Stat
+                  <select id="moveStat">
+                    <option value="">Manual</option>
+                    <option value="agility">Agility</option>
+                    <option value="presence">Presence</option>
+                    <option value="strength">Strength</option>
+                    <option value="toughness">Toughness</option>
+                    <option value="omens">Omens</option>
+                  </select>
+                </label>
+              </div>
+              <div id="moveResult" class="roll-result"></div>
+            </article>
+          </div>
+          <div class="grid three">
+            <article class="panel stat-card">
+              <span>Misery Die</span>
+              <strong id="miseryDie"></strong>
+              <button id="rollMisery">Roll Dawn</button>
+            </article>
+            <article class="panel stat-card">
+              <span>Open Threads</span>
+              <strong id="threadCount">0</strong>
+              <button id="addThread">Add Thread</button>
+            </article>
+            <article class="panel stat-card">
+              <span>Last Oracle</span>
+              <strong id="lastOracle">None</strong>
+              <button id="yesNoDesk">Ask</button>
+            </article>
+          </div>
+          <article class="panel">
+            <div class="panel-head">
+              <h3>Threads</h3>
+              <button id="clearResolved" class="small">Clear Resolved</button>
+            </div>
+            <div id="threadsList" class="list"></div>
+          </article>
+        </section>
+
+        <section id="characters" class="view">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Characters</h3>
+              <button id="newCharacter" class="primary">Roll Character</button>
+            </div>
+            <div class="form-grid">
+              <label>Playbook
+                <select id="classSelect">
+                  <option>Classless Scvm</option>
+                  <option>Damned Blade-Thrall</option>
+                  <option>Bone Slave</option>
+                  <option>Fugitive Knight</option>
+                  <option>Custom</option>
+                </select>
+              </label>
+              <label>Creation Mode
+                <select id="creationMode">
+                  <option value="standard">Standard</option>
+                  <option value="forgiving">Classless optional: two boosted stats</option>
+                </select>
+              </label>
+            </div>
+            <div id="charactersList" class="card-grid"></div>
+          </div>
+        </section>
+
+        <section id="dungeons" class="view">
+          <div class="grid two">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Dungeon</h3>
+                <button id="newDungeon" class="primary">Generate</button>
+              </div>
+              <div class="form-grid compact">
+                <label>Dungeon DR
+                  <select id="dungeonDr">
+                    <option value="6">Small DR 6</option>
+                    <option value="12" selected>Medium DR 12</option>
+                    <option value="14">Huge DR 14</option>
+                  </select>
+                </label>
+                <label>Threat Rating
+                  <select id="threatRating">
+                    <option value="9">Easy 9</option>
+                    <option value="12" selected>Normal 12</option>
+                    <option value="15">Hard 15</option>
+                  </select>
+                </label>
+              </div>
+              <div id="dungeonSheet" class="sheet"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Explore</h3>
+                <button id="exploreRoom" class="primary">Next Room</button>
+              </div>
+              <div id="roomResult" class="roll-result"></div>
+              <div id="roomLog" class="list"></div>
+            </article>
+          </div>
+          <article class="panel">
+            <div class="panel-head">
+              <h3>City Crawl</h3>
+              <button id="newStreet" class="primary">New Street</button>
+            </div>
+            <div id="cityResult" class="roll-result"></div>
+          </article>
+        </section>
+
+        <section id="encounters" class="view">
+          <div class="grid two">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Encounter</h3>
+                <button id="rollEncounter" class="primary">Roll</button>
+              </div>
+              <div class="form-grid compact">
+                <label>Danger
+                  <select id="encounterDanger">
+                    <option value="common">Common</option>
+                    <option value="stock">Stock Creature</option>
+                    <option value="rare">Rare / Suicidal</option>
+                    <option value="npc">NPC</option>
+                    <option value="trap">Trap</option>
+                  </select>
+                </label>
+                <label>Reaction Mod <input id="reactionMod" type="number" value="0" min="-6" max="6"></label>
+              </div>
+              <div id="encounterResult" class="roll-result"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Combat Pad</h3>
+                <button id="addCombatant" class="primary">Add Enemy</button>
+              </div>
+              <div id="combatants" class="list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="journal" class="view">
+          <article class="panel">
+            <div class="panel-head">
+              <h3>Journal</h3>
+              <button id="saveEntry" class="primary">Save Entry</button>
+            </div>
+            <div class="form-grid">
+              <label>Title <input id="entryTitle" type="text" autocomplete="off"></label>
+              <label>Scene Tags <input id="entryTags" type="text" autocomplete="off" placeholder="travel, dungeon, oath"></label>
+            </div>
+            <textarea id="entryBody" rows="10"></textarea>
+          </article>
+          <article class="panel">
+            <div class="panel-head">
+              <h3>Entries</h3>
+              <button id="newEntry" class="small">New</button>
+            </div>
+            <div id="entriesList" class="list"></div>
+          </article>
+        </section>
+
+        <section id="references" class="view">
+          <div class="grid two">
+            <article class="panel">
+              <h3>Moves</h3>
+              <div id="movesReference" class="reference-list"></div>
+            </article>
+            <article class="panel">
+              <h3>Sources</h3>
+              <div id="sourcesReference" class="reference-list"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <template id="inlineEditor">
+      <div class="inline-editor">
+        <input type="text">
+        <button class="small save-inline">Save</button>
+      </div>
+    </template>
+    <script src="app.js"></script>
+  </body>
+</html>
