@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-label="">
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency=".86" numOctaves="4" seed="9"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues=".18 .42"/>
+      </feComponentTransfer>
+    </filter>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#050505"/>
+      <stop offset=".5" stop-color="#28231c"/>
+      <stop offset="1" stop-color="#0b0b0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="520" fill="url(#g)"/>
+  <rect width="1600" height="520" filter="url(#noise)" opacity=".9"/>
+  <g fill="none" stroke="#e8dfc5" stroke-width="10" opacity=".7">
+    <path d="M270 442V220c0-88 58-150 140-150s140 62 140 150v222"/>
+    <path d="M310 442V226c0-62 40-108 100-108s100 46 100 108v216"/>
+    <path d="M230 442h360M250 376h320M286 292h248"/>
+  </g>
+  <g fill="#111" stroke="#d7c891" stroke-width="6" opacity=".9">
+    <rect x="706" y="344" width="82" height="82" transform="rotate(-12 747 385)"/>
+    <rect x="814" y="328" width="82" height="82" transform="rotate(9 855 369)"/>
+    <circle cx="729" cy="368" r="7" fill="#d03c28"/>
+    <circle cx="758" cy="396" r="7" fill="#d03c28"/>
+    <circle cx="833" cy="349" r="7" fill="#d03c28"/>
+    <circle cx="875" cy="389" r="7" fill="#d03c28"/>
+  </g>
+  <g stroke="#c5a64a" stroke-width="8" stroke-linecap="round" opacity=".7">
+    <path d="M1080 430c40-88 48-174 22-260"/>
+    <path d="M1134 430c-18-70-4-142 42-216"/>
+    <path d="M1184 430c58-52 78-122 60-210"/>
+  </g>
+  <g fill="#0a0a09" stroke="#eee3c6" stroke-width="8" opacity=".85">
+    <path d="M1242 448l34-102 34 102z"/>
+    <path d="M1328 448l26-78 26 78z"/>
+    <path d="M1389 448l38-118 38 118z"/>
+  </g>
+  <g stroke="#d03c28" stroke-width="7" opacity=".72">
+    <path d="M72 74c126 68 248 64 365-12M68 140c165 34 326 30 482-14M1012 84c176 74 346 86 508 36M944 164c194 22 375 10 546-35"/>
+  </g>
+</svg>
