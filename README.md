@@ -1,4 +1,4 @@
-# Mork Börg Solitary Defilement Engine
+# Mörk Borg Solitary Defilement Engine
 
 A local, browser-based solo play desk for Mork Borg with Solitary Defilement procedures.
 
